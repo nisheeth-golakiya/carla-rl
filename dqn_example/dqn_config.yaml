@@ -1,0 +1,66 @@
+# To see the complete list of configurable parameters see:
+# https://github.com/ray-project/ray/blob/master/rllib/agents/trainer.py
+framework: "torch"
+num_workers: 1
+num_gpus_per_worker: 1
+num_cpus_per_worker: 8
+rollout_fragment_length: 16
+timesteps_per_iteration: 2000
+train_batch_size: 64
+learning_starts: 5000
+buffer_size: 20000
+lr: 0.0003
+"exploration_config": {
+  "type": "EpsilonGreedy",
+  "initial_epsilon": 1.0,
+  "final_epsilon": 0.1,
+  "epsilon_timesteps": 50000
+}
+
+env_config:
+  carla:
+    host: "localhost"
+    timeout: 20.0
+    timestep: 0.05
+    retries_on_error: 25
+    resolution_x: 600
+    resolution_y: 600
+    quality_level: "Low"
+    enable_map_assets: True
+    enable_rendering: True
+    show_display: True
+
+  experiment:
+    hero:
+      blueprint: "vehicle.lincoln.mkz2017"
+      sensors:
+        collision:
+          type: "sensor.other.collision"
+        rgb:
+          type: "sensor.camera.rgb"
+          image_size_x: 300
+          image_size_y: 300
+          transform: "1.9, 0.0, 1.7, 0.0, -15.0, 0.0"
+        lane_invasion:
+          type: "sensor.other.lane_invasion"
+      spawn_points: [
+        "-115.60, -207.60, 11.02, -0.00, -0.01, -179.92", #tl_l 
+        "-243.70, 71.50, 11.98, -0.00, -0.08, 90.81", #bl_d
+        "76.60, 202.10, 1.00, -0.00, 0.00, 0.29", #br_r
+        "210.20, -50.30, 1.00, -0.00, 0.00, -90.67", #ur_u
+        "-114.30, 191.00, 9.27, -0.00, 0.61, 179.97", #bl_l
+        "-233.00, -51.50, 11.00, -0.00, 0.00, -90.84", # tl_u
+        "83.90, -190.30, 1.00, -0.00, 0.00, -0.24", #tr_r
+        "189.30, 88.20, 1.00, -0.00, 0.00, 90.66", #br_d
+        ]
+    background_activity:
+      n_vehicles: 0
+      n_walkers: 0
+      tm_hybrid_mode: True
+    town: "Town05_Opt"
+    weather: "CloudySunset"
+    others:
+      framestack: 1
+      max_time_idle: 600
+      max_dist: 200
+      target_speed: 5.0

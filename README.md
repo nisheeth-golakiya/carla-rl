@@ -21,5 +21,5 @@ RL environments and trained agents in CARLA using RLlib
 * Reward: If travelling at or below target speed, reward is same as distance travelled in the last step. If travelling above target speed, reward is zero. Reward of -1 if the ego-vehicle changes the lane or stays idle for given number of steps.
 * After training for 350k timesteps, the agent behaves as follows:
 <p align='center'>
-    <img src="_data/trained_lane_follower.gif" width="200" height="200" />
+    <img src="_data/trained_lane_follower_small.gif" width="200" height="200" />
 </p>

@@ -36,7 +36,10 @@ def run(args):
         tune.run(CustomDQNTrainer,
                  name=args.name,
                  local_dir=args.directory,
-                 stop={"perf/ram_util_percent": 85.0},
+                 stop={
+                     "perf/ram_util_percent": 85.0,
+                     "timesteps_total": args.stop_timesteps
+                 },
                  checkpoint_freq=1,
                  checkpoint_at_end=True,
                  restore=get_checkpoint(args.name, args.directory,
@@ -90,6 +93,10 @@ def main():
                            action="store_true",
                            default=False,
                            help="Flag to use auto address")
+    argparser.add_argument("--stop-timesteps",
+                           default=100000,
+                           type=int,
+                           help="Number of timesteps to train for")
 
 
     args = argparser.parse_args()

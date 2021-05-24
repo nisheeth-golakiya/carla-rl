@@ -12,6 +12,14 @@ RL environments and trained agents in CARLA using RLlib
 ## Lane-follower
 
 * Task: Follow the lane with given target speed. Episode ends if ego-vehicle changes the lane or stays idle for given number of steps or travells 200m.
-* Observations: Camera image, steering, throttle, speed, number of steps the vehicle has been idle
+* Observations: Camera image (grayscale), steering, throttle, speed, number of steps the vehicle has been idle
+<p align='center'>
+    <img src="_data/cloudysunset.png" width="100" height="100">
+</p>
+
 * Actions: Steer right/left, speed up/down
-* Reward: If travelling at or below target speed, reward is same as distance travelled in the last step. If travelling above target speed, reward is zero. -1 if the ego-vehicle changes the lane or stays idle for given number of steps.
+* Reward: If travelling at or below target speed, reward is same as distance travelled in the last step. If travelling above target speed, reward is zero. Reward of -1 if the ego-vehicle changes the lane or stays idle for given number of steps.
+* After training for 350k timesteps, the agent behaves as follows:
+<p align='center'>
+    <img src="_data/trained_lane_follower.gif" width="200" height="200" />
+</p>

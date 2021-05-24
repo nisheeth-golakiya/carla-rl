@@ -6,8 +6,8 @@ RL environments and trained agents in CARLA using RLlib
 
 ## Dependencies
 
-* CARLA: This project uses version 0.9.11
-* rllib-integration: The integration API is taken from here (with minor changes)
+* [CARLA](https://github.com/carla-simulator/carla): This project uses version 0.9.11
+* [rllib-integration](https://github.com/carla-simulator/rllib-integration): The integration API is taken from here (with minor changes)
 
 ## Lane-follower
 
@@ -23,3 +23,13 @@ RL environments and trained agents in CARLA using RLlib
 <p align='center'>
     <img src="_data/trained_lane_follower_small.gif" width="200" height="200" />
 </p>
+
+* To train the agent,
+```bash
+python dqn_train.py dqn_example/dqn_config.yaml --name dqn --stop-timesteps 350000
+```
+
+* To run the included trained agent,
+```bash
+python dqn_inference_ray.py dqn_example/dqn_config.yaml _data/checkpoint_000170/checkpoint-170 --num-episodes 10
+```

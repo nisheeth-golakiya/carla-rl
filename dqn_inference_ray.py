@@ -46,6 +46,10 @@ def main():
         "checkpoint",
         type=str,
         help="Checkpoint from which to roll out.")
+    argparser.add_argument("--num-episodes",
+                           type=int,
+                           default=10,
+                           help="Number of episodes to evaluate")
 
     args = argparser.parse_args()
     args.config = parse_config(args)
@@ -59,11 +63,13 @@ def main():
 
         # Initalize the CARLA environment
         env = agent.workers.local_worker().env
-        obs = env.reset()
 
-        while True:
-            action = agent.compute_action(obs)
-            obs, _, _, _ = env.step(action)
+        for _ in range(args.num_episodes):
+            obs = env.reset()
+            done = False
+            while not done:
+                action = agent.compute_action(obs)
+                obs, _, done, _ = env.step(action)
 
     except KeyboardInterrupt:
         print("\nshutdown by user")
